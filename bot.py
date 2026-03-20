@@ -1314,8 +1314,22 @@ async def stats_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(text, parse_mode="HTML", reply_markup=InlineKeyboardMarkup(keyboard))
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handle non-command messages - SILENT in groups"""
+    chat_type = update.effective_chat.type
+    
+    # Group aur supergroup mein kuch mat karo
+    if chat_type in ['group', 'supergroup']:
+        return  # Complete silence
+    
+    # Channel mein bhi silence
+    if chat_type == 'channel':
+        return
+    
+    # Private chat mein hi reply
     await update.message.reply_text(
-        "Please use commands.\nType /help to see available commands."
+        "❓ <b>Unknown command</b>\n\n"
+        "Use /help to see all available commands.",
+        parse_mode="HTML"
     )
 
 # ======================================================
