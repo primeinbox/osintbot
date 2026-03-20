@@ -1,0 +1,4 @@
+python-telegram-bot==22.7
+aiohttp==3.13.3
+motor==3.7.1
+python-dotenv==1.2.1
